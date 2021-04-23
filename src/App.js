@@ -1,16 +1,18 @@
 import React from "react";
 
-import { Header, Categories, Button } from './components';
+import { Header, Categories } from './components';
 
 
 function App() {
+
+  
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
         <div className="container">
           <div className="content__top">
-          <Categories items={[
+          <Categories onClick items={[
             'Мясные',
             'Вегетарианские',
             'Гриль',
