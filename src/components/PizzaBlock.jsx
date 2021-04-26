@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom/cjs/react-dom.development';
 
 function PizzaBlock({ obj }) {
   const availableTypes = ['тонкое', 'традиционное'];
