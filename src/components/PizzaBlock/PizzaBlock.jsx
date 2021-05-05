@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import LoadingBlock from './LoadingBlock';
 
-function PizzaBlock({ obj }) {
+function PizzaBlock({ obj, isLoading }) {
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = ['26', '30', '40'];
 
