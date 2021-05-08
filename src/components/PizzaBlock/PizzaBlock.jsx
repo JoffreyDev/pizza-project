@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
-import LoadingBlock from './LoadingBlock';
+import Button from '../Button';
 
-function PizzaBlock({ obj, isLoading }) {
+function PizzaBlock({ id, name, sizes, types, imageUrl, price, onAddPizza, cartCount }) {
   const availableTypes = ['тонкое', 'традиционное'];
-  const availableSizes = ['26', '30', '40'];
+  const availableSizes = [26, 30, 40];
 
-  const [selectedSize, setSelectedSize] = React.useState(obj.sizes[0]);
-  const [selectedType, setSelectedType] = React.useState(obj.types[0]);
+  const [selectedSize, setSelectedSize] = React.useState(0);
+  const [selectedType, setSelectedType] = React.useState(types[0]);
 
   const onSelectType = (index) => {
     setSelectedType(index);
@@ -17,10 +17,22 @@ function PizzaBlock({ obj, isLoading }) {
     setSelectedSize(index);
   };
 
+  const onClickAddPizza = () => {
+    const obj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size: availableSizes[selectedSize],
+      type: availableTypes[selectedType],
+    };
+    onAddPizza(obj);
+  };
+
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={obj.imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{obj.name}</h4>
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
           {availableTypes &&
@@ -29,7 +41,7 @@ function PizzaBlock({ obj, isLoading }) {
                 key={`${type}_${index}`}
                 className={classNames({
                   active: selectedType === index,
-                  disabled: !obj.types.includes(index),
+                  disabled: !types.includes(index),
                 })}
                 onClick={() => onSelectType(index)}>
                 {type}
@@ -42,18 +54,18 @@ function PizzaBlock({ obj, isLoading }) {
               <li
                 key={`${size}_${index}`}
                 className={classNames({
-                  active: selectedSize === +size,
-                  disabled: !obj.sizes.includes(+size),
+                  active: selectedSize === index,
+                  disabled: !sizes.includes(size),
                 })}
-                onClick={() => onSelectSize(+size)}>
+                onClick={() => onSelectSize(index)}>
                 {size + ' см.'}
               </li>
             ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {obj.price} ₽</div>
-        <div className="button button--outline button--add">
+        <div className="pizza-block__price">от {price} ₽</div>
+        <Button onClick={onClickAddPizza} className="button--add" outline>
           <svg
             width="12"
             height="12"
@@ -66,8 +78,8 @@ function PizzaBlock({ obj, isLoading }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          {cartCount && <i>{cartCount}</i>}
+        </Button>
       </div>
     </div>
   );
