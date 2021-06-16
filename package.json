@@ -2,6 +2,7 @@
   "name": "pizza-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://joffreydev.github.io/pizza-project/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
@@ -28,7 +29,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "npx json-server --watch public/db.json --port=3001"
+    "server": "npx json-server --watch public/db.json --port=3001",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [

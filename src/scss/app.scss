@@ -9,6 +9,18 @@ body {
   padding: 50px 0;
 }
 
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
