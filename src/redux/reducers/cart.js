@@ -18,6 +18,7 @@ const cart = (state = initialState, action) => {
           totalPrice: [].concat
             .apply([], Object.values(currentPizzasItems))
             .reduce((sum, obj) => obj.price + sum, 0),
+          totalCount: [].concat.apply([], Object.values(currentPizzasItems)).length,
         },
       };
 
@@ -55,6 +56,52 @@ const cart = (state = initialState, action) => {
         items: {},
         totalCount: 0,
         totalPrice: 0,
+      };
+      break;
+
+    case 'ADD_CURRENT_PIZZA_COUNT':
+      state.items[action.payload].items.push(state.items[action.payload].items[0]);
+
+      state.items[action.payload].totalPrice =
+        state.items[action.payload].items.length * state.items[action.payload].items[0].price;
+
+      state.items[action.payload].totalCount += 1;
+
+      const itemsSingleAdded = Object.values(state.items).map((obj) => obj.items);
+      const allPizzasSingleAdded = [].concat.apply([], itemsSingleAdded);
+      const totalPriceSingleAdded = allPizzasSingleAdded.reduce((sum, obj) => obj.price + sum, 0);
+
+      return {
+        ...state,
+        items: state.items,
+        totalCount: allPizzasSingleAdded.length,
+        totalPrice: totalPriceSingleAdded,
+      };
+
+      break;
+
+    case 'DEL_CURRENT_PIZZA_COUNT':
+      state.items[action.payload].items.pop();
+
+      state.items[action.payload].items[0].price
+        ? (state.items[action.payload].totalPrice =
+            state.items[action.payload].items.length * state.items[action.payload].items[0].price)
+        : (state.items[action.payload].totalPrice = 0);
+
+      state.items[action.payload].totalCount -= 1;
+
+      const itemsSingleDeleted = Object.values(state.items).map((obj) => obj.items);
+      const allPizzasSingleDeleted = [].concat.apply([], itemsSingleDeleted);
+      const totalPriceSingleDeleted = allPizzasSingleDeleted.reduce(
+        (sum, obj) => obj.price + sum,
+        0,
+      );
+
+      return {
+        ...state,
+        items: state.items,
+        totalCount: allPizzasSingleDeleted.length,
+        totalPrice: totalPriceSingleDeleted,
       };
   }
   return state;

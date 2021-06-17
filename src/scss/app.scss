@@ -21,6 +21,11 @@ button:hover {
   cursor: pointer;
 }
 
+.disabled {
+  opacity: 30%;
+  pointer-events: none;
+}
+
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
