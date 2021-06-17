@@ -83,10 +83,8 @@ const cart = (state = initialState, action) => {
     case 'DEL_CURRENT_PIZZA_COUNT':
       state.items[action.payload].items.pop();
 
-      state.items[action.payload].items[0].price
-        ? (state.items[action.payload].totalPrice =
-            state.items[action.payload].items.length * state.items[action.payload].items[0].price)
-        : (state.items[action.payload].totalPrice = 0);
+         state.items[action.payload].totalPrice =
+            state.items[action.payload].items.length * state.items[action.payload].items[0].price
 
       state.items[action.payload].totalCount -= 1;
 
